@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>zombie game</title>
+    <script src="js/jquery-1.10.2.min.js"></script>
+    <style type="text/css">
+
+        #textarea {
+
+            width: 500px;
+
+            height: 100px;
+
+        }
+
+    </style>
+</head>
+<body>
+<div> <input id="graid" type="text" name="gridName" >网格的尺寸</input></div>
+<div>
+    <br/>
+    zombie x:<input id="zombieX" type="text"  />
+    zombie y:<input id="zombieY" type="text"/><br/>
+    Command:<input id="command" type="text"/>
+</div>
+<div>
+    creature one x:<input id="creatureX1" type="text" />
+    creature y:<input id="creatureY1" type="text"/><br/>
+</div>
+<div>
+    creature x:<input id="creatureX2" type="text" />
+    creature y:<input id="creatureY2" type="text"/><br/>
+</div>
+<div>
+    creature x:<input id="creatureX3" type="text" />
+    creature y:<input id="creatureY3" type="text"/><br/>
+
+</div>
+<div>
+    <textarea id="textarea" ></textarea>
+</div>
+
+<div>
+    提交数据:<input id="button" type="submit"  />
+</div>
+<script  type="text/javascript">
+
+        $("#button").click(function () {
+            var graidSize = $("#graid").val();
+            var zombieX = $("#zombieX").val();
+            var zombieY = $("#zombieY").val();
+            var command = $("#command").val();
+            var creatureX1 = $("#creatureX1").val();
+            var creatureY1 = $("#creatureY1").val();
+            var creatureX2 = $("#creatureX2").val();
+            var creatureY2 = $("#creatureY2").val();
+            var creatureX3 = $("#creatureX3").val();
+            var creatureY3 = $("#creatureY3").val();
+            var str={
+                "gridSize": graidSize,
+                    "zombie": {
+                    "x": zombieX,
+                        "y": zombieY
+                },
+                "creatures": [
+                    {
+                        "x": creatureX1,
+                        "y": creatureY1
+                    },
+                    {
+                        "x": creatureX2,
+                        "y": creatureY2
+                    },
+                    {
+                        "x": creatureX3,
+                        "y": creatureY3
+                    }
+                ],
+                    "commands": command
+            }
+            $.ajax(
+                {
+                    type:"post",
+                    url:"http://localhost:8080/getValue",
+                    data:{
+                        value:JSON.stringify(str)
+                    },
+                    dataType:"text",
+                    success:function (data) {
+                        console.log(1111111);
+                        console.log(data);
+                        $("#textarea").text(data);
+                    }
+                }
+            )
+            console.log(111111);
+            // console.log(graidSize);
+        })
+
+</script>
+</body>
+</html>
